@@ -2,14 +2,20 @@
 % Please edit documentation in R/iroll.R
 \name{iroll_mean}
 \alias{iroll_mean}
+\alias{iroll_sd}
 \alias{iroll_min}
 \alias{iroll_max}
 \alias{iroll_first}
 \alias{iroll_last}
+\alias{iroll_sum}
+\alias{iroll_prod}
 \alias{iroll_quantile}
 \title{Rolling function for iregular series}
 \usage{
 iroll_mean(ix, x, left, right = 0, left_open = FALSE,
+  right_open = FALSE)
+
+iroll_sd(ix, x, left, right = 0, left_open = FALSE,
   right_open = FALSE)
 
 iroll_min(ix, x, left, right = 0, left_open = FALSE,
@@ -22,6 +28,12 @@ iroll_first(ix, x, left, right = 0, left_open = FALSE,
   right_open = FALSE)
 
 iroll_last(ix, x, left, right = 0, left_open = FALSE,
+  right_open = FALSE)
+
+iroll_sum(ix, x, left, right = 0, left_open = FALSE,
+  right_open = FALSE)
+
+iroll_prod(ix, x, left, right = 0, left_open = FALSE,
   right_open = FALSE)
 
 iroll_quantile(ix, x, left, right = 0, left_open = FALSE,
