@@ -22,48 +22,48 @@ c_cum_unique_count <- function(X, N) {
 }
 
 #' @export
-c_roll_min <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_min`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_min <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_min`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_max <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_max`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_max <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_max`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_mean <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_mean`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_mean <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_mean`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_sd <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_sd`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_sd <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_sd`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_sum <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_sum`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_sum <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_sum`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_prod <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_prod`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_prod <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_prod`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_first <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_first`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_first <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_first`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_last <- function(DATE, X, left_bound, right_bound, left_open, right_open) {
-    .Call(`_iroll_c_roll_last`, DATE, X, left_bound, right_bound, left_open, right_open)
+c_roll_last <- function(DATE, X, left_bound, right_bound, left_open, right_open, fill) {
+    .Call(`_iroll_c_roll_last`, DATE, X, left_bound, right_bound, left_open, right_open, fill)
 }
 
 #' @export
-c_roll_quantile <- function(DATE, X, left_bound, right_bound, left_open, right_open, prob) {
-    .Call(`_iroll_c_roll_quantile`, DATE, X, left_bound, right_bound, left_open, right_open, prob)
+c_roll_quantile <- function(DATE, X, left_bound, right_bound, left_open, right_open, prob, fill) {
+    .Call(`_iroll_c_roll_quantile`, DATE, X, left_bound, right_bound, left_open, right_open, prob, fill)
 }
 
 #' @export

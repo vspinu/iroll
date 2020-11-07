@@ -1,6 +1,8 @@
 
+
 test_that("ema works correctly with theta=0 and same consequent dates", {
-    date <- c(15295.3550810185, 15295.3550810185, 15295.3551851852,
+
+  date <- c(15295.3550810185, 15295.3550810185, 15295.3551851852,
               15295.3552314815, 15295.3552777778, 15295.3580902778, 15295.3581365741,
               15295.3582986111, 15295.3583680556, 15295.3584722222, 15295.3585185185,
               15295.3656018519, 15295.3800462963, 15295.3992476852, 15295.4045138889,
@@ -21,11 +23,12 @@ test_that("ema works correctly with theta=0 and same consequent dates", {
     expect_equal(ema(x, date, n = 0, linear = T), x)
     expect_equal(wema(x, weight, date, n = 0, cum = T), x)
     expect_equal(wema(x, weight, date, n = 0, linear = T), x)
+
 })
 
-x <- c(NA, 1:10)
-ema(x, 0:10)
-ema(rep.int(x, 2), 0:22)
+## x <- c(NA, 1:10)
+## ema(x, 0:10)
+## ema(rep.int(x, 2), 0:22)
 
 ## test_that("efilter works correctly", {
 ##     d <- 1:5

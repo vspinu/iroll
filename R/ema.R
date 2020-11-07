@@ -36,7 +36,7 @@ emaR <- function(x, date, n){
 ##' @param linear boolean, linear or not
 ##' @param cum boolean, cumulative or not
 ##' @export
-ema <- function(x, date, n = 10, linear = F, cum = F){
+ema <- function(x, date, n = 10, linear = F, cum = F) {
     f <-
         if(cum) c_cumema
         else if (linear) c_ema_lin
@@ -66,10 +66,12 @@ wema <- function(x, weight, date, n = 10, linear = F, cum = T){
 ##' @param nslow nr of periods for slow moving EMA
 ##' @param nfast nr of periods for fast moving EMA
 ##' @export
-macd <- function(x, date, nfast = 12, nslow = nfast*3L, linear = F, cum = F){
+macd <- function(x, date, nfast = 12, nslow = nfast*4, nbase = nfast*3, linear = F, cum = F){
     fast <- ema(x, date, nfast, linear, cum)
     slow <- ema(x, date, nslow, linear, cum)
     out <- fast/slow - 1
+    ## base <- ema(x, date, nbase, linear, cum)
+    ## out <- (fast - slow)/base
     out[is.nan(out)] <- 0
     out
 }
@@ -86,7 +88,7 @@ wmacd <- function(x, weight, date, nfast = 12, nslow = nfast*4L, linear = F, cum
 
 ##' @rdname ema
 ##' @export
-fwd_macd <- function(x, date, nfast = 12, nslow = nfast*3, linear = F, cum = F) {
+fwd_macd <- function(x, date, nfast = 12, nslow = nfast*4, linear = F, cum = F) {
     -rev(macd(rev(x), -rev(as.numeric(date)), nfast, nslow, linear, cum))
 }
 
@@ -141,7 +143,7 @@ wema2 <- function(x, weight, date, n = 10, linear = F, cum = F){
 
 ##' @rdname ema
 ##' @export
-macd2 <- function(x, date, nfast = 12, nslow = 26, linear = F, cum = F){
+macd2 <- function(x, date, nfast = 12, nslow = nfast*4, linear = F, cum = F){
     fast <- ema2(x, date, nfast, linear, cum)
     slow <- ema2(x, date, nslow, linear, cum)
     out <- fast/slow - 1

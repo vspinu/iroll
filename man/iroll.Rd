@@ -13,31 +13,31 @@
 \title{Rolling function for iregular series}
 \usage{
 iroll_mean(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_sd(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_min(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_max(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_first(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_last(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_sum(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_prod(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE)
+  right_open = FALSE, fill = NA_real_)
 
 iroll_quantile(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, prob = 0.5)
+  right_open = FALSE, prob = 0.5, fill = NA_real_)
 }
 \arguments{
 \item{ix}{index converible to numeric (Date, POSIXct, etc). Must be ordered
@@ -52,6 +52,8 @@ increasingly.}
 \item{left_open}{if the interval is left open}
 
 \item{right_open}{if the interval is right open}
+
+\item{fill}{number to fill for empty windows}
 
 \item{prob}{numeric scalar in [0, 1].}
 }
