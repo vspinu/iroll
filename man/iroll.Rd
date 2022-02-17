@@ -12,40 +12,104 @@
 \alias{iroll_quantile}
 \title{Rolling function for iregular series}
 \usage{
-iroll_mean(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_mean(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_sd(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_sd(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_min(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_min(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_max(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_max(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_first(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_first(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_last(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_last(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_sum(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_sum(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_prod(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, fill = NA_real_)
+iroll_prod(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  fill = NA_real_
+)
 
-iroll_quantile(ix, x, left, right = 0, left_open = FALSE,
-  right_open = FALSE, prob = 0.5, fill = NA_real_)
+iroll_quantile(
+  x,
+  ix = seq_along(x),
+  left,
+  right = 0,
+  left_open = FALSE,
+  right_open = FALSE,
+  prob = 0.5,
+  fill = NA_real_
+)
 }
 \arguments{
+\item{x}{value to be rolled over}
+
 \item{ix}{index converible to numeric (Date, POSIXct, etc). Must be ordered
 increasingly.}
 
-\item{x}{value to be rolled over}
-
-\item{left}{left bound scalar (convertible to numeric)}
+\item{left}{bound scalar (convertible to numeric)}
 
 \item{right}{right bound scalar (convertible to numeric)}
 

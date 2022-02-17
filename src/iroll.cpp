@@ -1,37 +1,35 @@
-#include <iostream>
-#include <Rcpp.h>
-#include <limits>
-#include <vector>
+#include <cmath>
+#include <cpp11.hpp>
 #include <forward_list>
 #include <functional>
-#include <cmath>
+#include <iostream>
+#include <limits>
+#include <vector>
+#include <algorithm>
 
-// Enable C++11 via plugin
-// [[Rcpp::plugins(cpp11)]]
-
-using namespace Rcpp;
 using namespace std::placeholders;
 
 // roll FUN on window starting at current-left_bound and ending at
 // current_date-right_bound.
-NumericVector c_roll(std::function<double (int si, int ei, const NumericVector& X)> fun,
-                     NumericVector& DATE,
-                     NumericVector& X,
-                     double left_bound,
-                     double right_bound,
-                     bool left_open,
-                     bool right_open,
-                     double fill){
-  if(DATE.length() != X.length()){
+cpp11::writable::doubles
+c_roll(std::function<double (int si, int ei, const cpp11::doubles& X)> fun,
+       cpp11::doubles DATE,
+       cpp11::doubles X,
+       double left_bound,
+       double right_bound,
+       bool left_open,
+       bool right_open,
+       double fill){
+  if(DATE.size() != X.size()){
 	Rf_error("Length of 'IX' and 'X' vectors differ.");
   }
   if(right_bound < left_bound){
     Rf_error("`left_bound` is larger than the `right_bound`");
   }
 
-  int N = DATE.length();
+  int N = DATE.size();
   int Nm1 = N - 1;
-  std::forward_list<double> out_vals, out_dates;
+  std::forward_list<double> out_vals;
 
   // ref, start and end indexes
   int ri = 0; // ref index
@@ -71,14 +69,16 @@ NumericVector c_roll(std::function<double (int si, int ei, const NumericVector& 
       (right_open ? DATE[si] >= ed : DATE[si] > ed) ||
       (left_open ? DATE[ei-1] <= sd : DATE[ei-1] < sd);
 
-    /* std::cout << "ri:" << ri << " rd:" << rd << " sd:" << sd << " ed:" << ed << " si:" << */
-    /*   si << " ei:" << ei - 1  << " X[ei]:" << X[ei-1] << std::endl; */
-
     if (is_outside) {
       val = fill;
     } else {
-      val = fun(si, ei - 1, X);
+      val = fun(si, ei, X);
     }
+
+    /* std::cout << "ri:" << ri << " rd:" << rd << " sd:" << sd << " ed:" << ed */
+    /*           << " si:" << si << " ei:" << ei - 1 << " X[ei]:" << X[ei - 1] */
+    /*           << " val:" << val */
+    /*           << std::endl; */
 
     while (nsame > 0){
       nsame--;
@@ -86,42 +86,48 @@ NumericVector c_roll(std::function<double (int si, int ei, const NumericVector& 
     }
   }
 
-  // out_dates.reverse();
-  out_vals.reverse();
+  /* Rf_PrintValue(X); */
 
-  // NumericVector ix = NumericVector(out_dates.begin(), out_dates.end());
-  // NumericVector vals = NumericVector(out_vals.begin(), out_vals.end());
+  cpp11::writable::doubles out(N);
+  for (size_t i = N; i > 0;) {
+    out[--i] = out_vals.front();
+    out_vals.pop_front();
+  }
 
-  // return DataFrame::create(Named("ix") = out_dates,
-  //   					   Named("val") = out_vals);
-  return NumericVector(out_vals.begin(), out_vals.end());
+  return out;
 }
 
 // receive start index (si), end index + 1 (ei) an the original vector X
-inline double vec_min(int si, int ei, const NumericVector& X) {
+inline double vec_min(int si, int ei, const cpp11::doubles X) {
   double accum = R_PosInf;
-  for(int i = si; i <= ei; i++) {
-    if (!ISNA(X[i]))
-      accum = std::min(accum, X[i]);
+  for(int i = si; i < ei; i++) {
+    double x = X[i];
+    if (!ISNA(x))
+      accum = std::min(accum, x);
   }
   if (accum == R_PosInf) return NA_REAL;
   else return accum;
 }
 
-inline double vec_max(int si, int ei, const NumericVector& X) {
+inline double vec_max(int si, int ei, const cpp11::doubles X) {
   double accum = R_NegInf;
-  for(int i = si; i <= ei; i++){
+  std::cout << "accum:" << accum << std::endl;
+  Rf_PrintValue(X);
+  for (size_t i = si; i < ei; i++) {
+    double x = X[i];
+    std::cout << "i:" << i << " X[i]:" << x << std::endl;
     if (!ISNA(X[i]))
-      accum = std::max(accum, X[i]);
+      accum = std::max(accum, x);
   }
+  std::cout << "accum:" << accum << std::endl;
   if (accum == R_NegInf) return NA_REAL;
   else return accum;
 }
 
-double vec_mean(int si, int ei, const NumericVector& X) {
+double vec_mean(int si, int ei, const cpp11::doubles X) {
   double accum = 0;
   size_t nr = 0;
-  for(int i = si; i <= ei; i++){
+  for(int i = si; i < ei; i++){
     // this NA check doesn't work on integers
     if (!ISNA(X[i])){
       accum += X[i];
@@ -132,11 +138,11 @@ double vec_mean(int si, int ei, const NumericVector& X) {
   else return NA_REAL;
 }
 
-double vec_sd(int si, int ei, const NumericVector& X) {
+double vec_sd(int si, int ei, const cpp11::doubles X) {
   double mean = vec_mean(si, ei, X);
   double accum = 0.0;
   size_t nr = 0;
-  for(int i = si; i <= ei; i++){
+  for(int i = si; i < ei; i++){
     // this NA check doesn't work on integers
     if (!ISNA(X[i])){
       accum += std::pow(X[i] - mean, 2.0);
@@ -147,9 +153,9 @@ double vec_sd(int si, int ei, const NumericVector& X) {
   else return NA_REAL;
 }
 
-double vec_sum(int si, int ei, const NumericVector& X) {
+double vec_sum(int si, int ei, const cpp11::doubles X) {
   double accum = 0.0;
-  for(int i = si; i <= ei; i++){
+  for(int i = si; i < ei; i++){
     if (!ISNA(X[i])) {
       accum += X[i];
     }
@@ -157,9 +163,9 @@ double vec_sum(int si, int ei, const NumericVector& X) {
   return accum;
 }
 
-double vec_prod(int si, int ei, const NumericVector& X) {
+double vec_prod(int si, int ei, const cpp11::doubles X) {
   double accum = 1.0;
-  for(int i = si; i <= ei; i++){
+  for(int i = si; i < ei; i++){
     if (!ISNA(X[i])) {
       accum *= X[i];
     }
@@ -167,87 +173,65 @@ double vec_prod(int si, int ei, const NumericVector& X) {
   return accum;
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_min(SEXP DATE, NumericVector& X,
-                         double left_bound, double right_bound,
-                         bool left_open, bool right_open,
-                         double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_min, tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_min(cpp11::doubles ix, const cpp11::doubles& X, double left_bound,
+               double right_bound, bool left_open, bool right_open,
+               double fill) {
+  return c_roll(vec_min, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_max(SEXP DATE, NumericVector& X,
-                         double left_bound, double right_bound,
-                         bool left_open, bool right_open,
-                         double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_max, tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_max(cpp11::doubles ix, const cpp11::doubles& X,
+                          double left_bound,
+                          double right_bound, bool left_open,
+                          bool right_open, double fill) {
+  return c_roll(vec_max, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_mean(SEXP DATE, NumericVector& X,
-                          double left_bound, double right_bound,
-                          bool left_open, bool right_open,
-                          double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_mean, tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_mean(
+  cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound,
+    bool left_open, bool right_open, double fill) {
+  return c_roll(vec_mean, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_sd(SEXP DATE, NumericVector& X,
-                        double left_bound, double right_bound,
-                        bool left_open, bool right_open,
-                        double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_sd, tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_sd(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound,
+          bool left_open, bool right_open, double fill) {
+  return c_roll(vec_sd, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_sum(SEXP DATE, NumericVector& X,
-                         double left_bound, double right_bound,
-                         bool left_open, bool right_open,
-                         double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_sum, tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_sum(cpp11::doubles ix, const cpp11::doubles& X, double left_bound,
+                          double right_bound, bool left_open, bool right_open,
+                          double fill) {
+  return c_roll(vec_sum, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_prod(SEXP DATE, NumericVector& X,
-                          double left_bound, double right_bound,
-                          bool left_open, bool right_open,
-                          double fill){
-  NumericVector tt(DATE);
-  return c_roll(vec_prod, tt, X, left_bound, right_bound, left_open, right_open, fill);
-}
-
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_first(SEXP DATE, NumericVector& X,
+[[cpp11::register]]
+cpp11::doubles c_roll_prod(cpp11::doubles ix, const cpp11::doubles& X,
                            double left_bound, double right_bound,
                            bool left_open, bool right_open,
                            double fill){
-  NumericVector tt(DATE);
-  return c_roll([](int si,  int ei, const NumericVector& X) { return X[si]; },
-				tt, X, left_bound, right_bound, left_open, right_open, fill);
+  return c_roll(vec_prod, ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_last(SEXP DATE, NumericVector& X,
-                          double left_bound, double right_bound,
-                          bool left_open, bool right_open,
-                          double fill){
-  NumericVector tt(DATE);
-  return c_roll([](int si, int ei, const NumericVector& X) { return X[ei]; },
-				tt, X, left_bound, right_bound, left_open, right_open, fill);
+[[cpp11::register]]
+cpp11::doubles c_roll_first(cpp11::doubles ix, const cpp11::doubles& X,
+                            double left_bound, double right_bound,
+                            bool left_open, bool right_open,
+                            double fill){
+  return c_roll([](int si, int ei, const cpp11::doubles X) { return X[si]; },
+				ix, X, left_bound, right_bound, left_open, right_open, fill);
+}
+
+[[cpp11::register]]
+cpp11::doubles c_roll_last(cpp11::doubles ix, const cpp11::doubles& X,
+                           double left_bound, double right_bound,
+                           bool left_open, bool right_open,
+                           double fill){
+  return c_roll([](int si, int ei, const cpp11::doubles& X) { return X[ei - 1]; },
+				ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
 
@@ -263,44 +247,40 @@ double quantile(const std::vector<double>& z, double prob) {
   }
 }
 
-double vec_quantile(int si,  int ei, const NumericVector& X, double prob){
-  // quantile setup
-  printf("se: %d %d\n", si, ei);
-  NumericVector::const_iterator first = X.begin() + si;
-  NumericVector::const_iterator last = X.begin() + (ei + 1);
+double vec_quantile(int si, int ei, const cpp11::doubles& X, double prob){
+  /* printf("se: %d %d\n", si, ei); */
+  const auto& first = X.begin() + si;
+  const auto& last = X.begin() + ei;
   std::vector<double> z(first, last);
-  printf("len: %d\n", (int) z.size());
-  printf("sevals: %f %f\n", z.front(), z.back());
+  /* printf("len: %d\n", (int) z.size()); */
+  /* printf("sevals: %f %f\n", z.front(), z.back()); */
   sort(z.begin(), z.end());
   return quantile(z, prob);
 }
 
-//' @export
-// [[Rcpp::export]]
-NumericVector c_roll_quantile(SEXP DATE, NumericVector& X,
-                              double left_bound, double right_bound,
-                              bool left_open, bool right_open,
-                              double prob,
-                              double fill){
-  NumericVector tt(DATE);
+[[cpp11::register]]
+cpp11::doubles c_roll_quantile(cpp11::doubles ix, const cpp11::doubles& X,
+                               double left_bound, double right_bound,
+                               bool left_open, bool right_open,
+                               double prob,
+                               double fill) {
   return c_roll(std::bind(vec_quantile, _1, _2, _3, prob),
-				tt, X, left_bound, right_bound, left_open, right_open, fill);
+				ix, X, left_bound, right_bound, left_open, right_open, fill);
 }
 
-
 // UTILS
-
 // like base cummin but ignores NAs
-//' @export
-// [[Rcpp::export]]
-NumericVector c_cummin(const NumericVector& X){
-  NumericVector out(X.length());
-  if (X.length()){
+[[cpp11::register]]
+cpp11::doubles c_cummin(const cpp11::doubles X) {
+  cpp11::writable::doubles out(X.size());
+  size_t N = X.size();
+  if (N > 0){
     double accum = X[0];
     out[0] = accum;
-    for (int i = 1; i < X.length(); i++){
-      if (!ISNA(X[i]) && X[i] != NA_INTEGER){
-        accum = std::min(X[i], accum);
+    for (int i = 1; i < N; i++){
+      double x = X[i];
+      if (!ISNA(x) && x != NA_INTEGER) {
+        accum = std::min(x, accum);
       }
       out[i] = accum;
     }
@@ -308,18 +288,18 @@ NumericVector c_cummin(const NumericVector& X){
   return out;
 }
 
-
 // like base cummax but ignores NAs
-//' @export
-// [[Rcpp::export]]
-NumericVector c_cummax(const NumericVector& X){
-  NumericVector out(X.length());
-  if (X.length()){
+[[cpp11::register]]
+cpp11::doubles c_cummax(const cpp11::doubles X){
+  cpp11::writable::doubles out(X.size());
+  size_t N = X.size();
+  if (N) {
     double accum = X[0];
     out[0] = accum;
-    for (int i = 1; i < X.length(); i++){
-      if (!ISNA(X[i]) && X[i] != NA_INTEGER){
-        accum = std::max(X[i], accum);
+    for (int i = 1; i < N; i++){
+      double x = X[i];
+      if (!ISNA(x) && x != NA_INTEGER) {
+        accum = std::max(x, accum);
       }
       out[i] = accum;
     }

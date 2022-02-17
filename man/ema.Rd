@@ -16,36 +16,57 @@
 \title{Exponential (weighted) moving averages and derivatives for iregular time
 series.}
 \usage{
-ema(x, date, n = 10, linear = F, cum = F)
+ema(x, ix = seq_along(x), n = 10, linear = F, cum = F)
 
-fwd_ema(x, date, n = 10, linear = F, cum = F)
+fwd_ema(x, ix = seq_along(x), n = 10, linear = F, cum = F)
 
-wema(x, weight, date, n = 10, linear = F, cum = T)
+wema(x, weight, ix = seq_along(x), n = 10, linear = F, cum = T)
 
-macd(x, date, nfast = 12, nslow = nfast * 3L, linear = F, cum = F)
+macd(
+  x,
+  ix = seq_along(x),
+  nfast = 12,
+  nslow = nfast * 4,
+  nbase = nfast * 3,
+  linear = F,
+  cum = F
+)
 
-wmacd(x, weight, date, nfast = 12, nslow = nfast * 4L, linear = F,
-  cum = T)
+wmacd(
+  x,
+  weight,
+  ix = seq_along(x),
+  nfast = 12,
+  nslow = nfast * 4L,
+  linear = F,
+  cum = T
+)
 
-fwd_macd(x, date, nfast = 12, nslow = nfast * 3, linear = F,
-  cum = F)
+fwd_macd(
+  x,
+  ix = seq_along(x),
+  nfast = 12,
+  nslow = nfast * 4,
+  linear = F,
+  cum = F
+)
 
-emsd(x, date, n = 10, normalize = T, linear = F, cum = F)
+emsd(x, ix = seq_along(x), n = 10, normalize = T, linear = F, cum = F)
 
-fwd_emsd(x, date, n = 10, linear = F, cum = F)
+fwd_emsd(x, ix = seq_along(x), n = 10, linear = F, cum = F)
 
-wemsd(x, weight, date, n = 10, normalize = T, linear = F, cum = T)
+wemsd(x, ix = seq_along(x), weight, n = 10, normalize = T, linear = F, cum = T)
 
-ema2(x, date, n = 10, linear = F, cum = F)
+ema2(x, ix = seq_along(x), n = 10, linear = F, cum = F)
 
-wema2(x, weight, date, n = 10, linear = F, cum = F)
+wema2(x, ix = seq_along(x), weight, n = 10, linear = F, cum = F)
 
-macd2(x, date, nfast = 12, nslow = 26, linear = F, cum = F)
+macd2(x, ix = seq_along(x), nfast = 12, nslow = nfast * 4, linear = F, cum = F)
 }
 \arguments{
 \item{x}{values of the seires}
 
-\item{date}{time index}
+\item{ix}{time index}
 
 \item{n}{ema parameter - number of periods (n = 1/theta where -theta is the
 exponent in the smoother). At \code{n} periods back \code{x} contributes

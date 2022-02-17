@@ -1,16 +1,15 @@
 Package: iroll
-Title: Fast rolling utilities for irregular time-series 
+Title: Fast rolling utilities for irregular time-series
 Version: 0.0.0.9000
 Authors@R: person("Vitalie", "Spinu", email="spinuvit@gmail.com", role = c("aut", "cre"))
 Description: Various rolling and moving average utilities for irregular time series.
 Depends:
     R (>= 3.1.1)
-Imports:
-    Rcpp
 License: GPL
 LazyData: true
-LinkingTo: Rcpp
-RoxygenNote: 6.1.1
+LinkingTo:
+    cpp11 (>= 0.3.0)
+RoxygenNote: 7.1.2
 Encoding: UTF-8
-Suggests: 
+Suggests:
     testthat
