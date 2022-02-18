@@ -41,66 +41,66 @@ extern "C" SEXP _iroll_c_cum_unique_count(SEXP X, SEXP N) {
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_min(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_min(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+SEXP c_roll_min(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_min(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_min(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_min(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_max(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_max(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+SEXP c_roll_max(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_max(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_max(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_max(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_mean(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_mean(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+SEXP c_roll_first(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_first(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_mean(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_first(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_sd(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_sd(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+SEXP c_roll_last(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_last(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_sd(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_last(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_sum(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_sum(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+cpp11::doubles c_roll_mean(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_mean(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_sum(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_mean(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_prod(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_prod(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+cpp11::doubles c_roll_sd(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_sd(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_prod(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_sd(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_first(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_first(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+cpp11::doubles c_roll_sum(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_sum(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_first(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_sum(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_last(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double fill);
-extern "C" SEXP _iroll_c_roll_last(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP fill) {
+cpp11::doubles c_roll_prod(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, SEXP fill);
+extern "C" SEXP _iroll_c_roll_prod(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_last(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_prod(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp
-cpp11::doubles c_roll_quantile(cpp11::doubles ix, const cpp11::doubles& X, double left_bound, double right_bound, bool left_open, bool right_open, double prob, double fill);
-extern "C" SEXP _iroll_c_roll_quantile(SEXP ix, SEXP X, SEXP left_bound, SEXP right_bound, SEXP left_open, SEXP right_open, SEXP prob, SEXP fill) {
+cpp11::doubles c_roll_quantile(SEXP X, cpp11::doubles ix, SEXP left, SEXP right, bool left_open, bool right_open, double prob, SEXP fill);
+extern "C" SEXP _iroll_c_roll_quantile(SEXP X, SEXP ix, SEXP left, SEXP right, SEXP left_open, SEXP right_open, SEXP prob, SEXP fill) {
   BEGIN_CPP11
-    return cpp11::as_sexp(c_roll_quantile(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(X), cpp11::as_cpp<cpp11::decay_t<double>>(left_bound), cpp11::as_cpp<cpp11::decay_t<double>>(right_bound), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(prob), cpp11::as_cpp<cpp11::decay_t<double>>(fill)));
+    return cpp11::as_sexp(c_roll_quantile(cpp11::as_cpp<cpp11::decay_t<SEXP>>(X), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ix), cpp11::as_cpp<cpp11::decay_t<SEXP>>(left), cpp11::as_cpp<cpp11::decay_t<SEXP>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(left_open), cpp11::as_cpp<cpp11::decay_t<bool>>(right_open), cpp11::as_cpp<cpp11::decay_t<double>>(prob), cpp11::as_cpp<cpp11::decay_t<SEXP>>(fill)));
   END_CPP11
 }
 // iroll.cpp

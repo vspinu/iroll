@@ -20,40 +20,40 @@ c_cum_unique_count <- function(X, N) {
   .Call(`_iroll_c_cum_unique_count`, X, N)
 }
 
-c_roll_min <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_min`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_min <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_min`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_max <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_max`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_max <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_max`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_mean <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_mean`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_first <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_first`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_sd <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_sd`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_last <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_last`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_sum <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_sum`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_mean <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_mean`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_prod <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_prod`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_sd <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_sd`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_first <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_first`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_sum <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_sum`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_last <- function(ix, X, left_bound, right_bound, left_open, right_open, fill) {
-  .Call(`_iroll_c_roll_last`, ix, X, left_bound, right_bound, left_open, right_open, fill)
+c_roll_prod <- function(X, ix, left, right, left_open, right_open, fill) {
+  .Call(`_iroll_c_roll_prod`, X, ix, left, right, left_open, right_open, fill)
 }
 
-c_roll_quantile <- function(ix, X, left_bound, right_bound, left_open, right_open, prob, fill) {
-  .Call(`_iroll_c_roll_quantile`, ix, X, left_bound, right_bound, left_open, right_open, prob, fill)
+c_roll_quantile <- function(X, ix, left, right, left_open, right_open, prob, fill) {
+  .Call(`_iroll_c_roll_quantile`, X, ix, left, right, left_open, right_open, prob, fill)
 }
 
 c_cummin <- function(X) {
