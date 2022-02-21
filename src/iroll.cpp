@@ -61,6 +61,7 @@ SEXP c_roll_min(SEXP X, cpp11::doubles ix,
   return roll_T2T(vec_min{}, X, ix, left, right, left_open, right_open, fill);
 };
 
+
 [[cpp11::register]]
 SEXP c_roll_max(SEXP X, cpp11::doubles ix,
                 SEXP left, SEXP right,
