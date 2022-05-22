@@ -20,7 +20,7 @@ cpp11::doubles c_cumema(cpp11::doubles X, cpp11::doubles days, double n) {
     out[prev] = X[prev];
 
     for(size_t i = prev + 1; i < N; i++){
-      if (ISNA(X[i])){
+      if (ISNA(X[i])) {
         out[i] = NA_REAL;
       } else {
         double delta = days[i] - days[prev];
