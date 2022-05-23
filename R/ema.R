@@ -71,7 +71,8 @@ wema <- function(x, weight, ix = seq_along(x), n = 10, linear = F, cum = T){
 ##' @param nfast nr of periods for fast moving EMA
 ##' @export
 macd <- function(x, ix = seq_along(x), nfast = 12, nslow = nfast*4, nbase = nfast*3, linear = F, cum = F){
-  n <- as.numeric(n)
+  nfast <- as.numeric(nfast)
+  nslow <- as.numeric(nslow)
   ix <- as.numeric(ix)
   fast <- ema(x, ix, nfast, linear, cum)
   slow <- ema(x, ix, nslow, linear, cum)
@@ -85,7 +86,8 @@ macd <- function(x, ix = seq_along(x), nfast = 12, nslow = nfast*4, nbase = nfas
 ##' @rdname ema
 ##' @export
 wmacd <- function(x, weight, ix = seq_along(x), nfast = 12, nslow = nfast*4L, linear = F, cum = T){
-  n <- as.numeric(n)
+  nfast <- as.numeric(nfast)
+  nslow <- as.numeric(nslow)
   ix <- as.numeric(ix)
   fast <- wema(x, weight, ix, nfast, linear, cum)
   slow <- wema(x, weight, ix, nslow, linear, cum)
@@ -97,7 +99,7 @@ wmacd <- function(x, weight, ix = seq_along(x), nfast = 12, nslow = nfast*4L, li
 ##' @rdname ema
 ##' @export
 fwd_macd <- function(x, ix = seq_along(x), nfast = 12, nslow = nfast*4, linear = F, cum = F) {
-    -rev(macd(rev(x), -rev(as.numeric(ix)), nfast, nslow, linear, cum))
+  -rev(macd(rev(x), -rev(as.numeric(ix)), nfast, nslow, linear, cum))
 }
 
 ##' @rdname ema
@@ -162,7 +164,8 @@ wema2 <- function(x, ix = seq_along(x), weight, n = 10, linear = F, cum = F){
 ##' @rdname ema
 ##' @export
 macd2 <- function(x, ix = seq_along(x), nfast = 12, nslow = nfast*4, linear = F, cum = F){
-  n <- as.numeric(n)
+  nfast <- as.numeric(nfast)
+  nslow <- as.numeric(nslow)
   ix <- as.numeric(ix)
   fast <- ema2(x, ix, nfast, linear, cum)
   slow <- ema2(x, ix, nslow, linear, cum)
